@@ -30,7 +30,11 @@ defmodule MessengerClone.RoomChannel do
   end
 
   def handle_in("new:msg", msg, socket) do
-    broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
+    broadcast! socket, "new:msg", %{
+      user: msg["user"],
+      body: msg["body"]
+    }
+
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
 end
