@@ -5,6 +5,7 @@ defmodule MessengerClone.UserSocket do
   channel "rooms:*", MessengerClone.RoomChannel
 
   ## Transports
+
   transport :websocket, Phoenix.Transports.WebSocket,
     timeout: 45_000
   transport :longpoll, Phoenix.Transports.LongPoll
