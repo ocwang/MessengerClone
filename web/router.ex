@@ -1,6 +1,6 @@
 defmodule MessengerClone.Router do
   use MessengerClone.Web, :router
-  alias MessengerClone.Strategies.APIVersioning
+  alias MessengerClone.Strategies.APIVersion
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,11 +11,11 @@ defmodule MessengerClone.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json-api"]
+    plug :accepts, ["json"]
   end
 
   pipeline :v1 do
-    plug APIVersioning, version: :v1
+    plug APIVersion, version: :v1
   end
 
   scope "/", MessengerClone do
@@ -25,13 +25,10 @@ defmodule MessengerClone.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", MessengerClone do
-    pipe_through :api
+  scope "/api/v1", MessengerClone do
+    pipe_through [:api, :v1]
 
-    scope "/v1" do
-      pipe_through :v1
-
-      resources "/users", UserController, only: [:index, :show, :create]
-    end
+    resources "/users", UserController, only: [:index, :show, :create]
+    resources "/sessions", SessionController, only: [:create, :delete], singleton: true
   end
 end

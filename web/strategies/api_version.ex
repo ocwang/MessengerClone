@@ -1,4 +1,4 @@
-defmodule MessengerClone.Strategies.APIVersioning do
+defmodule MessengerClone.Strategies.APIVersion do
   import Plug.Conn
 
   def init(opts), do: opts

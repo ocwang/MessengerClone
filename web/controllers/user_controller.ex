@@ -1,3 +1,5 @@
+require IEx
+
 defmodule MessengerClone.UserController do
   use MessengerClone.Web, :controller
   alias MessengerClone.Repo
@@ -13,14 +15,14 @@ defmodule MessengerClone.UserController do
     render(conn, "show.json", user: user)
   end
 
-  def create(conn, _params) do
-    changeset = User.registration_changeset(%User{}, conn.body_params)
+  def create(conn, params) do
+    changeset = User.registration_changeset(%User{}, params)
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
         |> put_status(201)
         |> render("show.json", user: user)
-      {:error, changeset} ->
+      {:error, _changeset} ->
         send_resp(conn, 422, "")
     end
   end
