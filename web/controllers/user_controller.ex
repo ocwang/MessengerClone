@@ -15,6 +15,11 @@ defmodule MessengerClone.UserController do
     render(conn, "show.json", user: user)
   end
 
+  def friends(conn, %{"user_id" => user_id}) do
+    users = Repo.all(from u in User, where: u.id != ^user_id)
+    render conn, "index.json", users: users
+  end
+
   def create(conn, params) do
     changeset = User.registration_changeset(%User{}, params)
     case Repo.insert(changeset) do

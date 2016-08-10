@@ -28,7 +28,10 @@ defmodule MessengerClone.Router do
   scope "/api/v1", MessengerClone do
     pipe_through [:api, :v1]
 
-    resources "/users", UserController, only: [:index, :show, :create]
+    resources "/chats", ChatController
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
+    resources "/users", UserController, only: [:index, :show, :create] do
+      get "/friends", UserController, :friends
+    end
   end
 end

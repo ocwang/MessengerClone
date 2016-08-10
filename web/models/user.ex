@@ -7,6 +7,11 @@ defmodule MessengerClone.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    many_to_many :chats,
+      MessengerClone.Chat,
+      join_through: "users_chats",
+      on_replace: :delete
+
     timestamps
   end
 
