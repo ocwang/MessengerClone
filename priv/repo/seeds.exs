@@ -45,3 +45,11 @@ user
 #
 #     table: users_chats
 #     constraint: users_chats_user_id_index
+
+
+# example:
+# from(d in Dish, where: d.id == 20, preload: [:vendor, :dietary_prefs]) |> Repo.first |> Dish.changeset(%{}) |>Ecto.Changeset.put_assoc(:dietary_prefs, dietary_prefs)
+#
+# Where
+#
+# dietary_prefs = from(dp in Mp.DietaryPref, where: dp.id in ^[1,2]) |> Repo.all |> Enum.map(&Ecto.Changeset.change/1)

@@ -32,6 +32,7 @@ defmodule MessengerClone.Router do
     resources "/sessions", SessionController, only: [:create, :delete], singleton: true
     resources "/users", UserController, only: [:index, :show, :create] do
       get "/friends", UserController, :friends
+      get "/chats", UserController, :chats
     end
   end
 end

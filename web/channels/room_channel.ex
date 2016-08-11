@@ -2,6 +2,8 @@ defmodule MessengerClone.RoomChannel do
   use Phoenix.Channel
   require Logger
 
+
+
   def join("rooms:lobby", message, socket) do
     Process.flag(:trap_exit, true)
     :timer.send_interval(5000, :ping)
@@ -9,10 +11,15 @@ defmodule MessengerClone.RoomChannel do
 
     {:ok, socket}
   end
+  def join("rooms:" <> chat_id, message, socket) do
+    # {:ok, assign(socket, :chat_id, String.to_integer(chat_id))}
 
-  def join("rooms:" <> _private_subtopic, _message, _socket) do
-    {:error, %{reason: "unauthorized"}}
+    {:ok, socket}
   end
+
+  # def join("rooms:" <> _private_subtopic, _message, _socket) do
+  #   {:error, %{reason: "unauthorized"}}
+  # end
 
   def handle_info({:after_join, msg}, socket) do
     broadcast! socket, "user:entered", %{user: msg["user"]}

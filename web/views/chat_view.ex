@@ -2,7 +2,7 @@ defmodule MessengerClone.ChatView do
   use MessengerClone.Web, :view
 
   def render("index.json", %{chats: chats}) do
-    %{data: render_many(chats, MessengerClone.ChatView, "chat.json")}
+    %{chats: render_many(chats, MessengerClone.ChatView, "chat.json")}
   end
 
   def render("show.json", %{chat: chat}) do
@@ -10,6 +10,6 @@ defmodule MessengerClone.ChatView do
   end
 
   def render("chat.json", %{chat: chat}) do
-    %{id: chat.id}
+    %{id: chat.id, name: chat.name}
   end
 end
